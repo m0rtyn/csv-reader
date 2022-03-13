@@ -1,24 +1,14 @@
+import SubmitButton from "./components/SubmitButton";
 import FileInput from "./components/FileInput";
 import FileList from "./components/FileList";
 
-interface Props {
-  handleInputChange: (event: Event) => void;
-  files: File[];
-  handleClick: () => void;
-}
-const CsvReader: React.FC<Props> = ({
-  handleInputChange,
-  files,
-  handleClick,
-}) => {
+const CsvReader: React.FC = () => {
   return (
     <>
-      {" "}
-      <FileInput onInputChange={handleInputChange} />
+      <FileInput />
       <hr />
-      <FileList files={files} />
-      {/* // TODO: extract as SubmitButton component */}
-      <button onClick={handleClick}>Send users</button>
+      <FileList />
+      <SubmitButton />
     </>
   );
 };

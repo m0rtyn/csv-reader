@@ -1,12 +1,20 @@
+import { CsvReader } from "./features/CsvReader";
 import { useCallback, useRef, useState } from "react";
-import "./App.css";
-import FileInput from "./components/FileInput";
-import FileList from "./components/FileList";
 
 interface User {
   name: string;
   age: number;
 }
+
+const sendUsersToServer = (dataObj: any): Promise<Response> => {
+  return fetch("https://frontend-homework.getsandbox.com/users", {
+    method: "POST",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: JSON.stringify(dataObj),
+  });
+};
 
 // TODO: refactor component
 const App = () => {
@@ -25,6 +33,7 @@ const App = () => {
           age: +rowArr[1],
         };
       });
+
       const users = usersRef.current;
       const newUsersState = [...users, ...addedUsers];
       usersRef.current = newUsersState;
@@ -56,16 +65,6 @@ const App = () => {
     return sendUsersToServer(payload);
   }, [collectUsersFromFiles, files]);
 
-  const sendUsersToServer = (dataObj: any): Promise<Response> => {
-    return fetch("https://frontend-homework.getsandbox.com/users", {
-      method: "POST",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify(dataObj),
-    });
-  };
-
   const handleInputChange = useCallback((event: Event) => {
     const files = (event.target as HTMLInputElement)?.files || [];
     const fileArray = Array.from(files);
@@ -73,16 +72,12 @@ const App = () => {
   }, []);
 
   return (
-    // TODO: extract as main feature
     <div>
-      <FileInput onInputChange={handleInputChange} />
-
-      <hr />
-
-      <FileList files={files} />
-
-      {/* // TODO: extract as SubmitButton component */}
-      <button onClick={handleClick}>Send users</button>
+      <CsvReader
+        handleInputChange={handleInputChange}
+        files={files}
+        handleClick={handleClick}
+      />
     </div>
   );
 };

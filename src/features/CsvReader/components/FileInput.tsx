@@ -1,5 +1,3 @@
-import React from "react";
-
 interface Props {
   // TODO: specify param type
   onInputChange: (event: any) => void;

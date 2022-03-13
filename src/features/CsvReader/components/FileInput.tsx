@@ -1,5 +1,3 @@
-import React from "react";
-
 interface Props {
   // TODO: specify param type
   onInputChange: (event: any) => void;
@@ -8,7 +6,7 @@ interface Props {
 const FileInput: React.FC<Props> = ({ onInputChange }) => {
   return (
     <label>
-      Please, upload your files
+      <p>Please, upload your files</p>
       <input
         onChange={onInputChange}
         accept=".csv"

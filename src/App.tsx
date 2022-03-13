@@ -1,17 +1,25 @@
-import { useCallback, useState } from "react";
-import "./App.css";
-import FileInput from "./components/FileInput";
-import FileList from "./components/FileList";
+import { CsvReader } from "./features/CsvReader";
+import { useCallback, useRef, useState } from "react";
 
 interface User {
   name: string;
   age: number;
 }
 
+const sendUsersToServer = (dataObj: any): Promise<Response> => {
+  return fetch("https://frontend-homework.getsandbox.com/users", {
+    method: "POST",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: JSON.stringify(dataObj),
+  });
+};
+
 // TODO: refactor component
 const App = () => {
   const [files, setFiles] = useState<File[]>([]);
-  const [users, setUsers] = useState<User[]>([]);
+  const usersRef = useRef<User[]>([]);
 
   const collectUsersFromTexts = useCallback(
     (progressEvent: ProgressEvent<FileReader>) => {
@@ -25,50 +33,37 @@ const App = () => {
           age: +rowArr[1],
         };
       });
+
+      const users = usersRef.current;
       const newUsersState = [...users, ...addedUsers];
-      setUsers(newUsersState);
+      usersRef.current = newUsersState;
     },
-    [users]
+    []
   );
 
   const collectUsersFromFiles = useCallback(
-    async (newFiles: File[]) => {
-      const fileReader = new FileReader();
-      console.log("🚀 ~ App ~ newFiles", newFiles)
-      fileReader.onload = collectUsersFromTexts;
-
-      return await newFiles.forEach(async (file) => {
-        console.log("🚀 ~ newFiles.forEach ~ file", file)
-        /* FIXME: Request error:
-          Uncaught (in promise) DOMException: An attempt was made to use an object that is not, or is no longer, usable
-          * possible solution is using of useEffect hook
-          * possible solution is using of Redux async side effect
-        */
-        await fileReader.readAsText(file)
+    (newFiles: File[]) => {
+      return newFiles.forEach((file) => {
+        const fileReader = new FileReader();
+        fileReader.onload = collectUsersFromTexts;
+        fileReader.readAsText(file);
       });
     },
     [collectUsersFromTexts]
   );
 
   const handleClick = useCallback(async () => {
-    await collectUsersFromFiles(files);
+    collectUsersFromFiles(files);
 
-    const dataObj = {
-      users: users.map((user) => user.name),
+    const users = usersRef.current;
+
+    const usernames = users.map((user) => user.name);
+    const payload = {
+      users: usernames,
     };
 
-    return sendUsersToServer(dataObj);
-  }, [collectUsersFromFiles, files, users]);
-
-  const sendUsersToServer = (dataObj: any): Promise<Response> => {
-    return fetch("https://frontend-homework.getsandbox.com/users", {
-      method: "POST",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify(dataObj),
-    });
-  };
+    return sendUsersToServer(payload);
+  }, [collectUsersFromFiles, files]);
 
   const handleInputChange = useCallback((event: Event) => {
     const files = (event.target as HTMLInputElement)?.files || [];
@@ -77,14 +72,12 @@ const App = () => {
   }, []);
 
   return (
-    // TODO: extract as main feature
     <div>
-      <FileInput onInputChange={handleInputChange} />
-
-      <FileList files={files} />
-
-      {/* // TODO: extract as SubmitButton component */}
-      <button onClick={handleClick}>Send users</button>
+      <CsvReader
+        handleInputChange={handleInputChange}
+        files={files}
+        handleClick={handleClick}
+      />
     </div>
   );
 };

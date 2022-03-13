@@ -30,7 +30,9 @@ Just visit https://martyn-vilantis.netlify.app or run localy by ```bash yarn && 
 - [ ] Add a separate tab that shows API calls logs - failed/succeeded, user count, timestamp
 - [ ] Use any component UI library that you like
 
+<!--
 ## Questions
+TODO: ask this questions
 - какая библиотека для стилей/компонентов?
   - tailwind
   - theme-ui
@@ -44,4 +46,5 @@ Just visit https://martyn-vilantis.netlify.app or run localy by ```bash yarn && 
   - redux / redux toolkit
 - как обрабатывать асинхронные запросы?
   - rxjs
-  - Promises chaining
+  - Promises chaining 
+-->

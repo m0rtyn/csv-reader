@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import "./App.css";
 import FileInput from "./components/FileInput";
 import FileList from "./components/FileList";
@@ -11,7 +11,7 @@ interface User {
 // TODO: refactor component
 const App = () => {
   const [files, setFiles] = useState<File[]>([]);
-  const [users, setUsers] = useState<User[]>([]);
+  const usersRef = useRef<User[]>([]);
 
   const collectUsersFromTexts = useCallback(
     (progressEvent: ProgressEvent<FileReader>) => {
@@ -25,40 +25,36 @@ const App = () => {
           age: +rowArr[1],
         };
       });
+      const users = usersRef.current;
       const newUsersState = [...users, ...addedUsers];
-      setUsers(newUsersState);
+      usersRef.current = newUsersState;
     },
-    [users]
+    []
   );
 
   const collectUsersFromFiles = useCallback(
-    async (newFiles: File[]) => {
-      const fileReader = new FileReader();
-      console.log("🚀 ~ App ~ newFiles", newFiles)
-      fileReader.onload = collectUsersFromTexts;
-
-      return await newFiles.forEach(async (file) => {
-        console.log("🚀 ~ newFiles.forEach ~ file", file)
-        /* FIXME: Request error:
-          Uncaught (in promise) DOMException: An attempt was made to use an object that is not, or is no longer, usable
-          * possible solution is using of useEffect hook
-          * possible solution is using of Redux async side effect
-        */
-        await fileReader.readAsText(file)
+    (newFiles: File[]) => {
+      return newFiles.forEach((file) => {
+        const fileReader = new FileReader();
+        fileReader.onload = collectUsersFromTexts;
+        fileReader.readAsText(file);
       });
     },
     [collectUsersFromTexts]
   );
 
   const handleClick = useCallback(async () => {
-    await collectUsersFromFiles(files);
+    collectUsersFromFiles(files);
 
-    const dataObj = {
-      users: users.map((user) => user.name),
+    const users = usersRef.current;
+
+    const usernames = users.map((user) => user.name);
+    const payload = {
+      users: usernames,
     };
 
-    return sendUsersToServer(dataObj);
-  }, [collectUsersFromFiles, files, users]);
+    return sendUsersToServer(payload);
+  }, [collectUsersFromFiles, files]);
 
   const sendUsersToServer = (dataObj: any): Promise<Response> => {
     return fetch("https://frontend-homework.getsandbox.com/users", {
@@ -80,6 +76,8 @@ const App = () => {
     // TODO: extract as main feature
     <div>
       <FileInput onInputChange={handleInputChange} />
+
+      <hr />
 
       <FileList files={files} />
 

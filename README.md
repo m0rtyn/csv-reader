@@ -8,6 +8,13 @@ Just visit https://martyn-vilantis.netlify.app or run localy by ```bash yarn && 
 
 <!-- TODO: add screenshot -->
 
+## Tech stack
+
+- React
+- Redux Toolkit
+- TypeScript
+- eslint, prettier, husky, standard-version
+
 ## To be done
 
 ### First release
@@ -18,9 +25,9 @@ Just visit https://martyn-vilantis.netlify.app or run localy by ```bash yarn && 
 
 ### Second release
 - [x] Add a Readme file with the instructions on how to set up and start your website.
-- [ ] Count of users stored in the file each file.
+- [x] Add an option to remove any file from the list.
+- [ ] Count of users stored in the each file.
 - [ ] Show the average age of all the users.
-- [ ] Add an option to remove any file from the list.
 
 ### Third release
 - [ ] Show a loading state while the API request is in progress.
@@ -43,9 +50,6 @@ TODO: ask this questions
   - styled components
   - post-css
   - sass
-- как будет устроено состояние приложения?
-  - react context
-  - redux / redux toolkit
 - как обрабатывать асинхронные запросы?
   - rxjs
   - Promises chaining 

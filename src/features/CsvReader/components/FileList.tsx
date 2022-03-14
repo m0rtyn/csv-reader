@@ -3,13 +3,13 @@ import { selectFiles } from "../csvReaderSlice";
 import FileItem from "./FileItem";
 
 const FileList: React.FC = () => {
-  const fileNames = useSelector(selectFiles);
+  const files = useSelector(selectFiles);
 
   return (
     <>
-      <p>Files count: {fileNames.length}</p>
+      <p>Files count: {files.length}</p>
       <ul>
-        {fileNames.map((file, i) => (
+        {files.map((file, i) => (
           <FileItem key={i} file={file} />
         ))}
       </ul>

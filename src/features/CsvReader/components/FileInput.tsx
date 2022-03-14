@@ -50,6 +50,7 @@ const FileInput: React.FC = () => {
       const fileArray = Array.from(files);
 
       collectUsersFromFiles(fileArray);
+      
       const shallowFiles = fileArray.map(
         ({ name, size, type, lastModified }) => ({
           name,

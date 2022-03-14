@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/m0rtyn/csv-reader/compare/v0.1.6...v0.2.0) (2022-03-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* second release
+
+### Features
+
+* second release ([bc57386](https://github.com/m0rtyn/csv-reader/commit/bc573865024b5c00efc9bc7c0c7c9d77080dd39a))
+
 ### [0.1.6](https://github.com/m0rtyn/csv-reader/compare/v0.1.5...v0.1.6) (2022-03-14)
 
 

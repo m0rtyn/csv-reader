@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/m0rtyn/csv-reader/compare/v0.1.6...v0.2.0) (2022-03-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* second release
+
+### Features
+
+* second release ([bc57386](https://github.com/m0rtyn/csv-reader/commit/bc573865024b5c00efc9bc7c0c7c9d77080dd39a))
+
+### [0.1.6](https://github.com/m0rtyn/csv-reader/compare/v0.1.5...v0.1.6) (2022-03-14)
+
+
+### Features
+
+* add users count and avg. age for file list ([809f4e8](https://github.com/m0rtyn/csv-reader/commit/809f4e8962c4450f98516a553c79eab057232708))
+
 ### [0.1.5](https://github.com/m0rtyn/csv-reader/compare/v0.1.4...v0.1.5) (2022-03-14)
 
 ### [0.1.4](https://github.com/m0rtyn/csv-reader/compare/v0.1.3...v0.1.4) (2022-03-14)

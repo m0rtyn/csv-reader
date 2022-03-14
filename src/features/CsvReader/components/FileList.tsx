@@ -1,14 +1,15 @@
-interface Props {
-  files: File[];
-}
+import { useSelector } from "react-redux";
+import { selectFiles } from "../csvReaderSlice";
 
-const FileList: React.FC<Props> = ({ files }) => {
+const FileList: React.FC = () => {
+  const fileNames = useSelector(selectFiles);
+
   return (
     <>
-      <p>Files count: {files.length}</p>
+      <p>Files count: {fileNames.length}</p>
       <ul>
-        {files.map((file, i) => (
-          <li key={i}>{file.name}</li>
+        {fileNames.map((filename, i) => (
+          <li key={i}>{filename}</li>
         ))}
       </ul>
     </>

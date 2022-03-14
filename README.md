@@ -19,8 +19,8 @@ Just visit https://martyn-vilantis.netlify.app or run localy by ```bash yarn && 
 ### Second release
 - [x] Add a Readme file with the instructions on how to set up and start your website.
 - [ ] Count of users stored in the file each file.
-- [ ] Add an option to remove any file from the list.
 - [ ] Show the average age of all the users.
+- [ ] Add an option to remove any file from the list.
 
 ### Third release
 - [ ] Show a loading state while the API request is in progress.
@@ -28,9 +28,9 @@ Just visit https://martyn-vilantis.netlify.app or run localy by ```bash yarn && 
 - [ ] If the API call fails - show an error message and let the user retry manually.
 
 ### Rest releases
+- [ ] Use any component UI library that you like
 - [ ] If the API call fails - retry 3 times automatically. If all the retries fail - show an error message and let the user retry manually.
 - [ ] Add a separate tab that shows API calls logs - failed/succeeded, user count, timestamp
-- [ ] Use any component UI library that you like
 
 <!--
 ## Questions

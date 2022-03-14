@@ -1,6 +1,6 @@
 {
   "name": "csv-reader",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.0",

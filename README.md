@@ -1,4 +1,5 @@
 [![Total time via Wakatime](https://wakatime.com/badge/user/4d609996-b80c-43ee-91da-7bc046ee4216/project/289a6e96-84ba-446b-b564-380afef7070d.svg)](https://wakatime.com/badge/user/4d609996-b80c-43ee-91da-7bc046ee4216/project/289a6e96-84ba-446b-b564-380afef7070d)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5f0f3625-186a-4431-86bb-d8bdc8948e48/deploy-status)](https://app.netlify.com/sites/martyn-vilantis/deploys)
 
 # Test project for Vilantis
 
@@ -29,8 +30,8 @@ yarn && yarn start
 ### Second release
 - [x] Add a Readme file with the instructions on how to set up and start your website.
 - [x] Add an option to remove any file from the list.
-- [ ] Count of users stored in the each file.
-- [ ] Show the average age of all the users.
+- [x] Count of users stored in the each file.
+- [x] Show the average age of all the users.
 
 ### Third release
 - [ ] Show a loading state while the API request is in progress.

@@ -1,11 +1,12 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User } from "../../shared/types";
-import { RootState, AppThunk } from "../../shared/store";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { sendUsersToServer } from "./csvReaderAPI";
+import { ShallowFile } from "./types";
+import { UserLinkedToFile } from "@shared/types";
+import { AppThunk, RootState } from "@shared/store";
 
 export interface CsvReaderState {
-  files: string[];
-  users: User[];
+  files: ShallowFile[];
+  users: UserLinkedToFile[];
   status: "IDLE" | "REQUEST" | "SUCCESS" | "FAILURE";
 }
 
@@ -28,13 +29,22 @@ export const csvReaderSlice = createSlice({
   name: "csvReader",
   initialState,
   reducers: {
-    addFiles: (state, action: PayloadAction<string[]>) => {
+    addFiles: (state, action: PayloadAction<ShallowFile[]>) => {
       state.files = action.payload;
     },
-    addUsers: (state, action: PayloadAction<User[]>) => {
+    deleteFile: (state, action: PayloadAction<ShallowFile>) => {
+      state.files = state.files.filter(
+        (file) => file.name !== action.payload.name
+      );
+      state.users = state.users.filter(
+        (user) => user.filename !== action.payload.name
+      );
+    },
+    addUsers: (state, action: PayloadAction<UserLinkedToFile[]>) => {
       state.users = [...state.users, ...action.payload];
     },
   },
+  // TODO: add request status changing
   // extraReducers: (builder) => {
   //   builder
   //     .addCase(sendUsersAsync.pending, (state) => {
@@ -51,31 +61,25 @@ export const csvReaderSlice = createSlice({
   // },
 });
 
-export const { addFiles, addUsers } = csvReaderSlice.actions;
+export const csvReaderActions = csvReaderSlice.actions;
 
-export const sendAndAddUsers =
-  (): AppThunk =>
-  // eslint-disable-next-line max-statements
-  async (dispatch, getState) => {
-    const {
-      csvReader: { users },
-    } = getState();
+export const sendAndAddUsers = (): AppThunk => async (dispatch, getState) => {
+  const {
+    csvReader: { users },
+  } = getState();
 
-    try {
-      const usernames = users.map((user) => user.name);
-      const payload = {
-        users: usernames,
-      };
+  try {
+    const usernames = users.map((user) => user.name);
+    const payload = {
+      users: usernames,
+    };
 
-      const response = await sendUsersToServer(payload);
-    } catch (e) {
-      console.error(e);
-    }
-  };
+    await sendUsersToServer(payload);
+  } catch (e) {
+    console.error(e);
+  }
+};
 
-// The function below is called a selector and allows us to select a value from
-// the state. Selectors can also be defined inline where they're used instead of
-// in the slice file. For example: `useSelector((state: RootState) => state.csvReader.value)`
 export const selectUsers = (state: RootState) => state.csvReader.users;
 export const selectFiles = (state: RootState) => state.csvReader.files;
 

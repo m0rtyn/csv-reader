@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/m0rtyn/csv-reader/compare/v0.1.4...v0.1.5) (2022-03-14)
+
+### [0.1.4](https://github.com/m0rtyn/csv-reader/compare/v0.1.3...v0.1.4) (2022-03-14)
+
+
+### Features
+
+* add files deletion ([375c307](https://github.com/m0rtyn/csv-reader/commit/375c307ce42c8d2241db7485b39f2d189fdea415))
+* add redux-toolkit and extract sub effects ([b5bb97f](https://github.com/m0rtyn/csv-reader/commit/b5bb97f41e7d67f4825d2a2143cfc07e9da1aa04))
+
 ### [0.1.3](https://github.com/m0rtyn/csv-reader/compare/v0.1.2...v0.1.3) (2022-03-13)
 
 

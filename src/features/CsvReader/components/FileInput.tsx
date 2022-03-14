@@ -1,27 +1,27 @@
 import { ChangeEvent, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@shared/store";
-import {
-  addFiles,
-  addUsers,
-  selectFiles,
-  selectUsers,
-} from "../csvReaderSlice";
+import { csvReaderActions, selectUsers } from "../csvReaderSlice";
+
+const { addFiles, addUsers } = csvReaderActions;
 
 const FileInput: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const users = useSelector(selectUsers);
 
   const collectUsersFromTexts = useCallback(
-    (progressEvent: ProgressEvent<FileReader>) => {
-      const fileText = progressEvent?.target?.result as string;
+    (filename: string, progressEvent: ProgressEvent<FileReader>) => {
+      const target = progressEvent?.target;
+      const fileText = target?.result as string;
       const rowsOfCSV = fileText?.split("\n");
       const addedUsersRows = rowsOfCSV.slice(1, rowsOfCSV.length);
+
       const addedUsers = addedUsersRows.map((row: string) => {
         const rowArr = row.split(",");
         return {
           name: rowArr[0],
-          age: +rowArr[1],
+          age: Number(rowArr[1]),
+          filename,
         };
       });
 
@@ -35,7 +35,9 @@ const FileInput: React.FC = () => {
     (newFiles: File[]) => {
       return newFiles.forEach((file) => {
         const fileReader = new FileReader();
-        fileReader.onload = collectUsersFromTexts;
+        fileReader.onload = (progressEvent: ProgressEvent<FileReader>) =>
+          collectUsersFromTexts(file.name, progressEvent);
+
         fileReader.readAsText(file);
       });
     },
@@ -48,7 +50,16 @@ const FileInput: React.FC = () => {
       const fileArray = Array.from(files);
 
       collectUsersFromFiles(fileArray);
-      dispatch(addFiles(fileArray.map((file) => file.name)));
+      const shallowFiles = fileArray.map(
+        ({ name, size, type, lastModified }) => ({
+          name,
+          lastModified,
+          size,
+          type,
+        })
+      );
+
+      dispatch(addFiles(shallowFiles));
     },
     [collectUsersFromFiles, dispatch]
   );

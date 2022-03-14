@@ -4,7 +4,10 @@
 
 ## Usage
 
-Just visit https://martyn-vilantis.netlify.app or run localy by ```bash yarn && yarn start```
+Just visit https://martyn-vilantis.netlify.app or run localy by
+```bash
+yarn && yarn start
+```
 
 <!-- TODO: add screenshot -->
 

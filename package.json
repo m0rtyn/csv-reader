@@ -54,7 +54,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "format": "react-scripts format",
+    "format": "prettier --write 'src/**/*.{ts, tsx}'",
     "release": "standard-version",
     "postinstall": "husky install"
   },

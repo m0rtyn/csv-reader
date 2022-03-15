@@ -34,24 +34,27 @@ export const csvReaderSlice = createSlice({
     addUsers: (state, action: PayloadAction<UserLinkedToFile[]>) => {
       state.users = [...state.users, ...action.payload];
     },
-    requestFailure: (state, action: PayloadAction<Response>) => {
+    requestStatusFailure: (state, action: PayloadAction<Response>) => {
       console.info("Failed request: ", action.payload);
       state.status = "FAILURE";
     },
-    requestSuccess: (state, action: PayloadAction<Response>) => {
+    requestStatusSuccess: (state, action: PayloadAction<Response>) => {
       console.info("Success request: ", action.payload);
       state.status = "SUCCESS";
       state.files = [];
     },
-    requestPending: (state) => {
+    requestStatusPending: (state) => {
       state.status = "REQUEST";
     },
+    requestStatusReset: (state) => {
+      state.status = "IDLE"
+    }
   },
 });
 
 export const csvReaderActions = csvReaderSlice.actions;
 
-const { requestPending, requestFailure, requestSuccess } = csvReaderActions;
+const { requestStatusPending, requestStatusFailure, requestStatusSuccess, requestStatusReset } = csvReaderActions;
 
 // eslint-disable-next-line max-statements
 export const sendAndAddUsers = (): AppThunk => async (dispatch, getState) => {
@@ -61,17 +64,21 @@ export const sendAndAddUsers = (): AppThunk => async (dispatch, getState) => {
 
   const usernames = users.map((user) => user.name);
 
-  dispatch(requestPending());
+  dispatch(requestStatusPending());
 
   const response = await sendUsersToServer({
     users: usernames,
   });
 
   if (response.ok) {
-    dispatch(requestSuccess(response));
+    dispatch(requestStatusSuccess(response));
   } else {
-    dispatch(requestFailure(response));
+    dispatch(requestStatusFailure(response));
   }
+
+  setTimeout(() => {
+    dispatch(requestStatusReset())
+  }, 3000)
 };
 
 export const csvReaderReducer = csvReaderSlice.reducer;

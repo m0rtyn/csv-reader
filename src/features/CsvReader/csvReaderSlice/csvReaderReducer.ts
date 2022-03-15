@@ -1,14 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { sendUsersToServer } from "../csvReaderAPI";
-import { ShallowFile } from "../types";
+import { CsvReaderState, ShallowFile } from "../types";
 import { UserLinkedToFile } from "@shared/types";
 import { AppThunk } from "@shared/store";
-
-export interface CsvReaderState {
-  files: ShallowFile[];
-  users: UserLinkedToFile[];
-  status: "IDLE" | "REQUEST" | "SUCCESS" | "FAILURE";
-}
 
 const initialState: CsvReaderState = {
   files: [],
@@ -47,43 +41,12 @@ export const csvReaderSlice = createSlice({
       state.status = "REQUEST";
     },
     requestStatusReset: (state) => {
-      state.status = "IDLE";
+      setTimeout(() => {
+        state.status = "IDLE";
+      }, 3000);
     },
   },
 });
 
 export const csvReaderActions = csvReaderSlice.actions;
-
-const {
-  requestStatusPending,
-  requestStatusFailure,
-  requestStatusSuccess,
-  requestStatusReset,
-} = csvReaderActions;
-
-// eslint-disable-next-line max-statements
-export const sendAndAddUsers = (): AppThunk => async (dispatch, getState) => {
-  const {
-    csvReader: { users },
-  } = getState();
-
-  const usernames = users.map((user) => user.name);
-
-  dispatch(requestStatusPending());
-
-  const response = await sendUsersToServer({
-    users: usernames,
-  });
-
-  if (response.ok) {
-    dispatch(requestStatusSuccess(response));
-  } else {
-    dispatch(requestStatusFailure(response));
-  }
-
-  setTimeout(() => {
-    dispatch(requestStatusReset());
-  }, 3000);
-};
-
 export const csvReaderReducer = csvReaderSlice.reducer;

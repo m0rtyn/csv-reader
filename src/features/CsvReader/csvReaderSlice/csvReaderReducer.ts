@@ -47,14 +47,19 @@ export const csvReaderSlice = createSlice({
       state.status = "REQUEST";
     },
     requestStatusReset: (state) => {
-      state.status = "IDLE"
-    }
+      state.status = "IDLE";
+    },
   },
 });
 
 export const csvReaderActions = csvReaderSlice.actions;
 
-const { requestStatusPending, requestStatusFailure, requestStatusSuccess, requestStatusReset } = csvReaderActions;
+const {
+  requestStatusPending,
+  requestStatusFailure,
+  requestStatusSuccess,
+  requestStatusReset,
+} = csvReaderActions;
 
 // eslint-disable-next-line max-statements
 export const sendAndAddUsers = (): AppThunk => async (dispatch, getState) => {
@@ -77,8 +82,8 @@ export const sendAndAddUsers = (): AppThunk => async (dispatch, getState) => {
   }
 
   setTimeout(() => {
-    dispatch(requestStatusReset())
-  }, 3000)
+    dispatch(requestStatusReset());
+  }, 3000);
 };
 
 export const csvReaderReducer = csvReaderSlice.reducer;

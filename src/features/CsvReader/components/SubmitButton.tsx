@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectStatus } from "../csvReaderSlice";
-import { sendAndAddUsers } from "../csvReaderSlice/csvReaderReducer";
+import { sendAndAddUsers } from "../csvReaderSlice/csvReaderThunks";
 
 const SubmitButton = () => {
   const dispatch = useDispatch();

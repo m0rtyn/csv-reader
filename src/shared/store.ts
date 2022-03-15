@@ -1,5 +1,5 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import { csvReaderReducer } from "../features/CsvReader";
+import { csvReaderReducer } from "features/CsvReader/csvReaderSlice";
 
 export const store = configureStore({
   reducer: {

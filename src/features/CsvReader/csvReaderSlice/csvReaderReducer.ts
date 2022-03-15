@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { sendUsersToServer } from "./csvReaderAPI";
-import { ShallowFile } from "./types";
+import { sendUsersToServer } from "../csvReaderAPI";
+import { ShallowFile } from "../types";
 import { UserLinkedToFile } from "@shared/types";
-import { AppThunk, RootState } from "@shared/store";
+import { AppThunk } from "@shared/store";
 
 export interface CsvReaderState {
   files: ShallowFile[];
@@ -15,15 +15,6 @@ const initialState: CsvReaderState = {
   users: [],
   status: "IDLE",
 };
-
-// TODO: remake this action and add missing actions
-// export const sendUsersAsync = createAsyncThunk(
-//   'csvReader/sendUsers',
-//   async (users: User[]) => {
-//     const response = await sendUsersToServer(users.map(user => user.name));
-//     return users;
-//   }
-// );
 
 export const csvReaderSlice = createSlice({
   name: "csvReader",
@@ -43,26 +34,24 @@ export const csvReaderSlice = createSlice({
     addUsers: (state, action: PayloadAction<UserLinkedToFile[]>) => {
       state.users = [...state.users, ...action.payload];
     },
+    requestFailure: (state, action: PayloadAction<unknown>) => {
+      console.error(action.payload);
+      state.status = "FAILURE";
+    },
+    requestSuccess: (state) => {
+      state.status = "SUCCESS";
+    },
+    requestPending: (state) => {
+      state.status = "REQUEST";
+    },
   },
-  // TODO: add request status changing
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(sendUsersAsync.pending, (state) => {
-  //       state.status = 'REQUEST';
-  //     })
-  //     .addCase(sendUsersAsync.fulfilled, (state, action) => {
-  //       state.status = 'SUCCESS';
-
-  //       state.users = action.payload;
-  //     })
-  //     .addCase(sendUsersAsync.rejected, (state) => {
-  //       state.status = 'FAILURE';
-  //     });
-  // },
 });
 
 export const csvReaderActions = csvReaderSlice.actions;
 
+const { requestPending, requestFailure, requestSuccess } = csvReaderActions;
+
+// eslint-disable-next-line max-statements
 export const sendAndAddUsers = (): AppThunk => async (dispatch, getState) => {
   const {
     csvReader: { users },
@@ -70,17 +59,15 @@ export const sendAndAddUsers = (): AppThunk => async (dispatch, getState) => {
 
   try {
     const usernames = users.map((user) => user.name);
-    const payload = {
-      users: usernames,
-    };
 
-    await sendUsersToServer(payload);
+    dispatch(requestPending());
+    await sendUsersToServer({
+      users: usernames,
+    });
+    dispatch(requestSuccess());
   } catch (e) {
-    console.error(e);
+    dispatch(requestFailure(e));
   }
 };
 
-export const selectUsers = (state: RootState) => state.csvReader.users;
-export const selectFiles = (state: RootState) => state.csvReader.files;
-
-export default csvReaderSlice.reducer;
+export const csvReaderReducer = csvReaderSlice.reducer;

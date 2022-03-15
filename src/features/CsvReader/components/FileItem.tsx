@@ -1,9 +1,7 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { csvReaderActions, selectUsers } from "../csvReaderSlice";
+import { deleteFile, selectUsers } from "../csvReaderSlice";
 import { ShallowFile } from "../types";
-
-const { deleteFile } = csvReaderActions;
 
 const FileItem = ({ file }: { file: ShallowFile }) => {
   const dispatch = useDispatch();

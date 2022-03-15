@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { sendUsersToServer } from "../csvReaderAPI";
 import { CsvReaderState, ShallowFile } from "../types";
 import { UserLinkedToFile } from "@shared/types";
-import { AppThunk } from "@shared/store";
+import { requestStatusResetAsync, sendAndAddUsers } from "./csvReaderThunks";
 
 const initialState: CsvReaderState = {
   files: [],
@@ -28,25 +27,27 @@ export const csvReaderSlice = createSlice({
     addUsers: (state, action: PayloadAction<UserLinkedToFile[]>) => {
       state.users = [...state.users, ...action.payload];
     },
-    requestStatusFailure: (state, action: PayloadAction<Response>) => {
-      console.info("Failed request: ", action.payload);
-      state.status = "FAILURE";
-    },
-    requestStatusSuccess: (state, action: PayloadAction<Response>) => {
-      console.info("Success request: ", action.payload);
-      state.status = "SUCCESS";
-      state.files = [];
-    },
-    requestStatusPending: (state) => {
-      state.status = "REQUEST";
-    },
-    requestStatusReset: (state) => {
-      setTimeout(() => {
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(requestStatusResetAsync.fulfilled, (state, action) => {
         state.status = "IDLE";
-      }, 3000);
-    },
+      })
+      .addCase(sendAndAddUsers.fulfilled, (state, { payload }) => {
+        console.info("Success request: ", payload);
+        state.status = "SUCCESS";
+        state.files = [];
+      })
+      .addCase(sendAndAddUsers.pending, (state, action) => {
+        state.status = "REQUEST";
+      })
+      .addCase(sendAndAddUsers.rejected, (state, action) => {
+        console.info("Failed request: ", action.payload);
+        state.status = "FAILURE";
+      });
   },
 });
 
-export const csvReaderActions = csvReaderSlice.actions;
+export const { deleteFile, addFiles, addUsers } = csvReaderSlice.actions;
+
 export const csvReaderReducer = csvReaderSlice.reducer;

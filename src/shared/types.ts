@@ -6,3 +6,10 @@ export interface User {
 export interface UserLinkedToFile extends User {
   filename: string;
 }
+
+export interface ShallowResponse {
+  status: number;
+  statusText: string;
+  type: string;
+  url: string;
+}

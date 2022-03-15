@@ -1,9 +1,7 @@
 import { ChangeEvent, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@shared/store";
-import { csvReaderActions, selectUsers } from "../csvReaderSlice";
-
-const { addFiles, addUsers } = csvReaderActions;
+import { addFiles, addUsers, selectUsers } from "../csvReaderSlice";
 
 const FileInput: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();

@@ -13,17 +13,19 @@ export const requestStatusResetAsync = createAsyncThunk(
 );
 
 export const sendAndAddUsers = createAsyncThunk(
-  "csvReader/sendAndAddUsers", async (_, thunkAPI) => {
+  "csvReader/sendAndAddUsers",
+  async (_, thunkAPI) => {
     const {
       csvReader: { users },
     } = thunkAPI.getState() as RootState;
 
-  const usernames = users.map((user) => user.name);
-  const response = await sendUsersToServer({
-    users: usernames,
-  });
-  thunkAPI.dispatch(requestStatusResetAsync());
-  console.info(response.statusText);
+    const usernames = users.map((user) => user.name);
+    const response = await sendUsersToServer({
+      users: usernames,
+    });
+    thunkAPI.dispatch(requestStatusResetAsync());
+    console.info(response.statusText);
 
-  return response;
-});
+    return response;
+  }
+);

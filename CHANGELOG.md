@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1](https://github.com/m0rtyn/csv-reader/compare/v0.2.0...v0.2.1) (2022-03-15)
+
+
+### Features
+
+* add request status output ([65025c3](https://github.com/m0rtyn/csv-reader/commit/65025c3c5283a71a847c59ef1dcd57809befcd9f))
+* add request status states and show loading on request ([0b632d4](https://github.com/m0rtyn/csv-reader/commit/0b632d43d523593184b2ea937e13f5f00781138d))
+
+
+### Bug Fixes
+
+* add request status resetting ([dd061b6](https://github.com/m0rtyn/csv-reader/commit/dd061b63901c4f9669426fa54278afec6ddcc4f2))
+
 ## [0.2.0](https://github.com/m0rtyn/csv-reader/compare/v0.1.6...v0.2.0) (2022-03-14)
 
 

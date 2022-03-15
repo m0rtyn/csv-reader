@@ -11,9 +11,19 @@ const SubmitButton = () => {
     dispatch(sendAndAddUsers());
   }, [dispatch]);
 
+  const getStatus = (status: "IDLE" | "REQUEST" | "SUCCESS" | "FAILURE") => {
+    const statusMap = {
+      IDLE: 'Send request',
+      REQUEST: 'Loading...',
+      SUCCESS: '✅',
+      FAILURE: '❌'
+    }
+    return statusMap[status] || '🤷‍♂️'
+  }
+
   return (
     <button onClick={handleClick}>
-      {requestStatus === "REQUEST" ? "Loading..." : "Send users"}
+      {getStatus(requestStatus)}
     </button>
   );
 };

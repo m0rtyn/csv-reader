@@ -35,8 +35,8 @@ yarn && yarn start
 
 ### Third release
 - [x] Show a loading state while the API request is in progress.
-- [ ] If the API call succeeds - show a success message and clear all uploaded files.
-- [ ] If the API call fails - show an error message and let the user retry manually.
+- [x] If the API call succeeds - show a success message and clear all uploaded files.
+- [x] If the API call fails - show an error message and let the user retry manually.
 
 ### Rest releases
 - [ ] Use any component UI library that you like

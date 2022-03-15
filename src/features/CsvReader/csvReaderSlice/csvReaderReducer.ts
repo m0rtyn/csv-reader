@@ -34,12 +34,14 @@ export const csvReaderSlice = createSlice({
     addUsers: (state, action: PayloadAction<UserLinkedToFile[]>) => {
       state.users = [...state.users, ...action.payload];
     },
-    requestFailure: (state, action: PayloadAction<unknown>) => {
-      console.error(action.payload);
+    requestFailure: (state, action: PayloadAction<Response>) => {
+      console.info("Failed request: ", action.payload);
       state.status = "FAILURE";
     },
-    requestSuccess: (state) => {
+    requestSuccess: (state, action: PayloadAction<Response>) => {
+      console.info("Success request: ", action.payload);
       state.status = "SUCCESS";
+      state.files = [];
     },
     requestPending: (state) => {
       state.status = "REQUEST";
@@ -57,16 +59,18 @@ export const sendAndAddUsers = (): AppThunk => async (dispatch, getState) => {
     csvReader: { users },
   } = getState();
 
-  try {
-    const usernames = users.map((user) => user.name);
+  const usernames = users.map((user) => user.name);
 
-    dispatch(requestPending());
-    await sendUsersToServer({
-      users: usernames,
-    });
-    dispatch(requestSuccess());
-  } catch (e) {
-    dispatch(requestFailure(e));
+  dispatch(requestPending());
+  
+  const response = await sendUsersToServer({
+    users: usernames,
+  });
+
+  if (response.ok) {
+    dispatch(requestSuccess(response));
+  } else {
+    dispatch(requestFailure(response));
   }
 };
 

@@ -62,7 +62,7 @@ export const sendAndAddUsers = (): AppThunk => async (dispatch, getState) => {
   const usernames = users.map((user) => user.name);
 
   dispatch(requestPending());
-  
+
   const response = await sendUsersToServer({
     users: usernames,
   });

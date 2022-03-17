@@ -11,6 +11,7 @@ const settingsSlice = createSlice({
   },
 });
 
-export const { actions: settingsActions, reducer: settingsReducer } = settingsSlice;
+export const { actions: settingsActions, reducer: settingsReducer } =
+  settingsSlice;
 
 export const selectThemeType = (state: RootState) => state.settings.themeType;

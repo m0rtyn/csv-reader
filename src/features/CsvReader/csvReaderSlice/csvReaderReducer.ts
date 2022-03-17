@@ -52,7 +52,7 @@ export const csvReaderSlice = createSlice({
   },
 });
 
-const {actions, reducer} = csvReaderSlice
+const { actions, reducer } = csvReaderSlice;
 export const { deleteFile, addFiles, addUsers, resetFiles } = actions;
 
 export const csvReaderReducer = reducer;

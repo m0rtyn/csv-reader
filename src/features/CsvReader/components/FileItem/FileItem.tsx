@@ -5,6 +5,7 @@ import { deleteFile, selectUsers } from "../../csvReaderSlice";
 import { ShallowFile } from "../../types";
 import { Trash } from "@geist-ui/icons";
 import styles from "./FileItem.module.css";
+import { roundToFirstDecimal } from "shared/utils/utils";
 
 interface Props {
   file: ShallowFile;
@@ -20,8 +21,8 @@ const FileItem: React.FC<Props> = ({ file, isLast }) => {
     .reduce(
       (acc, user, i, arr) => {
         return {
-          usersCount: acc.usersCount + 1,
-          averageAge: acc.averageAge + user.age / arr.length,
+          usersCount: roundToFirstDecimal(acc.usersCount + 1),
+          averageAge: roundToFirstDecimal(acc.averageAge + user.age / arr.length),
         };
       },
       { usersCount: 0, averageAge: 0 }

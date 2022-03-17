@@ -1031,6 +1031,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.16.7":
+  version "7.17.7"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.17.7.tgz#a5f3328dc41ff39d803f311cfe17703418cf9825"
+  integrity sha512-L6rvG9GDxaLgFjg41K+5Yv9OMrU98sWe+Ykmc6FDJW/+vYZMhdOMKkISgzptMaERHvS2Y2lw9MDRm2gHhlQQoA==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/template@^7.16.7", "@babel/template@^7.3.3":
   version "7.16.7"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.16.7.tgz#8d126c8701fde4d66b264b3eba3d96f07666d155"
@@ -1147,6 +1154,18 @@
     js-yaml "^4.1.0"
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
+
+"@geist-ui/core@^2.3.6":
+  version "2.3.6"
+  resolved "https://registry.yarnpkg.com/@geist-ui/core/-/core-2.3.6.tgz#f37d2331a064dccc918944af0533f0c2c68cc8af"
+  integrity sha512-IltILuADOMwgWW7Kfol/yHbBra9F1Is1FYizmyjsHnYd94e+LpIcjC/2vCWXTIz6Atx0auLvRqonbbMKXjZKVQ==
+  dependencies:
+    "@babel/runtime" "^7.16.7"
+
+"@geist-ui/icons@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@geist-ui/icons/-/icons-1.0.1.tgz#588b22960f584cbb75674ed56ea0789ac62dfbd6"
+  integrity sha512-W+ol1DOk9MNjY9IV0gKbhaKIjif6O+5wxM31CIUUAl6shjRjmwVPxVNFoaVJwiTp0Chp5BQyluHmCWaOOZQCtA==
 
 "@humanwhocodes/config-array@^0.9.2":
   version "0.9.5"

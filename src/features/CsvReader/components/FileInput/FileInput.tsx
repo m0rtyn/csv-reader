@@ -1,11 +1,20 @@
 import { ChangeEvent, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "@shared/store";
-import { addFiles, addUsers, selectUsers } from "../csvReaderSlice";
+import { AppDispatch } from "shared/store/store";
+import {
+  addFiles,
+  addUsers,
+  selectFiles,
+  selectUsers,
+} from "../../csvReaderSlice";
+import styles from "./FileInput.module.css";
+import { Button, Grid, Text } from "@geist-ui/core";
 
+// TODO: refactor component
 const FileInput: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const users = useSelector(selectUsers);
+  const files = useSelector(selectFiles);
 
   const collectUsersFromTexts = useCallback(
     (filename: string, progressEvent: ProgressEvent<FileReader>) => {
@@ -48,7 +57,7 @@ const FileInput: React.FC = () => {
       const fileArray = Array.from(files);
 
       collectUsersFromFiles(fileArray);
-      
+
       const shallowFiles = fileArray.map(
         ({ name, size, type, lastModified }) => ({
           name,
@@ -63,17 +72,32 @@ const FileInput: React.FC = () => {
     [collectUsersFromFiles, dispatch]
   );
 
+  const filesCountText = files.length === 0 ? "No" : files.length;
+
   return (
-    <label>
-      <p>Please, upload your files</p>
-      <input
-        onChange={handleInputChange}
-        accept=".csv"
-        type="file"
-        required
-        multiple
-      />
-    </label>
+    <>
+      <Text>Please, choose your CSV files</Text>
+      <Grid.Container alignItems="center" gap={1}>
+        <Grid>
+          <Button auto>
+            <label className={styles["file-input"]} htmlFor="file-input">
+              Browse...
+            </label>
+            <input
+              onChange={handleInputChange}
+              id="file-input"
+              accept=".csv"
+              type="file"
+              required
+              multiple
+            />
+          </Button>
+        </Grid>
+        <Grid>
+          {`${filesCountText} files selected.`}
+        </Grid>
+      </Grid.Container>
+    </>
   );
 };
 

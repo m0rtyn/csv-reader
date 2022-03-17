@@ -1,2 +1,2 @@
 export { default as CsvReader } from "./CsvReader";
-export * from "./csvReaderSlice/csvReaderReducer";
+export * from "./csvReaderSlice";

@@ -1,4 +1,4 @@
-import { fetchRetry } from "@shared/utils/fetchRetry";
+import { fetchRetry } from "shared/utils/fetchRetry";
 
 const API_URL = "https://frontend-homework.getsandbox.com";
 

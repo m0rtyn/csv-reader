@@ -1,14 +1,17 @@
 import SubmitButton from "./components/SubmitButton";
-import FileInput from "./components/FileInput";
-import FileList from "./components/FileList";
+import FileInput from "./components/FileInput/FileInput";
+import FileList from "./components/FileList/FileList";
+import { Card, Spacer } from "@geist-ui/core";
 
 const CsvReader: React.FC = () => {
   return (
     <>
-      <FileInput />
-      <hr />
+      <Card>
+        <FileInput />
+        <Spacer h={1}/>
+        <SubmitButton />
+      </Card>
       <FileList />
-      <SubmitButton />
     </>
   );
 };

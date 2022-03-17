@@ -8,17 +8,16 @@ import styles from "./FileList.module.css";
 
 const FileList: React.FC = () => {
   const files = useSelector(selectFiles);
-  const isFilesExist = files.length > 0;
+  const filesLen = files.length;
+  const isFilesExist = filesLen > 0;
 
   return isFilesExist ? (
     <Card>
       <ul className={styles["file-list"]}>
-        <FileListHeader key={1000}/>
+        <FileListHeader />
 
         {files.map((file, i) => (
-          <>
-            <FileItem key={i} file={file} isLast={i !== files.length - 1} />
-          </>
+          <FileItem key={i} file={file} isLast={i !== filesLen - 1} />
         ))}
       </ul>
     </Card>

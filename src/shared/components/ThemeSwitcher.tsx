@@ -1,4 +1,4 @@
-import { Toggle } from "@geist-ui/core";
+import { Card, Grid, Spacer, Toggle, Text } from "@geist-ui/core";
 import { useDispatch } from "react-redux";
 import { settingsActions } from "shared/store";
 
@@ -10,12 +10,17 @@ export const ThemeSwitcher = () => {
   };
   
   return (
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-    }}>
-      Theme: <Toggle  type="warning" onChange={switchThemes}/>
-    </div>
+    <Card>
+      <Grid.Container   justify="flex-end">
+        <Grid justify="flex-end">
+          <Text font={"12px"} my={0} type="secondary">
+            Theme
+          </Text>
+          <Spacer h={0} />
+          <Toggle scale={1.5} type="warning" onChange={switchThemes}/>
+        </Grid>
+      </Grid.Container>
+    </Card>
   );
 };
 

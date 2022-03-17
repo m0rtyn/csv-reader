@@ -1,3 +1,4 @@
+import { Divider } from "@geist-ui/core";
 import styles from "./FileItem.module.css";
 
 // TODO: move component to shared foledr
@@ -12,7 +13,7 @@ export const FileListHeader = () => {
         <span title="Avg. age">Avg. age</span>
         <span title="Action">Action</span>
       </li>
-      <hr style={{ margin: 0 }} />
+      <Divider style={{ margin: 0 }} />
     </>
   );
 };

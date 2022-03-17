@@ -1,4 +1,4 @@
-import { Button } from "@geist-ui/core";
+import { Button, Divider } from "@geist-ui/core";
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteFile, selectUsers } from "../../csvReaderSlice";
@@ -47,7 +47,7 @@ const FileItem: React.FC<Props> = ({ file, isLast }) => {
           auto
         />
       </li>
-      {isLast && <hr style={{ margin: 0 }} />}
+      {isLast && <Divider style={{ margin: 0 }} />}
     </>
   );
 };

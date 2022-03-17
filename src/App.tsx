@@ -11,7 +11,7 @@ const App = () => {
   return (
     <GeistProvider themeType={themeType}>
       <CssBaseline />
-      <Page>
+      <Page dotBackdrop dotSize={"4px"}>
         <ThemeSwitcher />
         <CsvReader />
       </Page>

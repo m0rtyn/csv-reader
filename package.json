@@ -3,6 +3,8 @@
   "version": "0.2.0",
   "private": true,
   "dependencies": {
+    "@geist-ui/core": "^2.3.6",
+    "@geist-ui/icons": "^1.0.1",
     "@reduxjs/toolkit": "^1.8.0",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^11.2.7",

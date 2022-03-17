@@ -1,30 +1,42 @@
+import { Button } from "@geist-ui/core";
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectStatus } from "../csvReaderSlice";
-import { sendAndAddUsers } from "../csvReaderSlice/csvReaderThunks";
+import { selectFiles, selectRequestStatus } from "../csvReaderSlice";
+import { sendUsers } from "../csvReaderSlice/csvReaderThunks";
+
+// TODO: extract constant and type
+const REQUEST_STATUS_TO_TYPE_MAP = {
+  IDLE: "secondary" as const,
+  REQUEST: "secondary" as const,
+  SUCCESS: "success" as const,
+  FAILURE: "error" as const,
+};
+type RequestStatus = keyof typeof REQUEST_STATUS_TO_TYPE_MAP
 
 const SubmitButton = () => {
+  const status = useSelector(selectRequestStatus);
+  const files = useSelector(selectFiles);
   const dispatch = useDispatch();
-  const requestStatus = useSelector(selectStatus);
 
   const handleClick = useCallback(() => {
-    dispatch(sendAndAddUsers());
+    dispatch(sendUsers());
   }, [dispatch]);
 
-  const getStatus = (status: "IDLE" | "REQUEST" | "SUCCESS" | "FAILURE") => {
-    const statusMap = {
-      IDLE: 'Send request',
-      REQUEST: 'Loading...',
-      SUCCESS: '✅',
-      FAILURE: '❌'
-    }
-    return statusMap[status] || '🤷‍♂️'
-  }
+  const getButtonTypeFromStatus = (status: RequestStatus) => {
+    return REQUEST_STATUS_TO_TYPE_MAP[status] || "default";
+  };
 
   return (
-    <button onClick={handleClick}>
-      {getStatus(requestStatus)}
-    </button>
+    <Button
+      type={getButtonTypeFromStatus(status)}
+      onClick={handleClick}
+      loading={status === "REQUEST"}
+      disabled={files.length === 0}
+      auto
+      ghost
+    >
+      Submit
+    </Button>
   );
 };
 

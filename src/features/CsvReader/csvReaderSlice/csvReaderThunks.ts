@@ -1,10 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { RootState } from "@shared/store";
+import { RootState } from "shared/store/store";
+import { FEATURE_NAME } from "../constants";
 import { sendUsersToServer } from "../csvReaderAPI";
 
-const FEATURE_PREFIX = 'csvReader/'
-const requestStatusResetActionType = `${FEATURE_PREFIX}resetRequestStatus` as const
-const sendUsersActionType = `${FEATURE_PREFIX}sendUsers` as const
+const requestStatusResetActionType =
+  `${FEATURE_NAME}resetRequestStatus` as const;
+const sendUsersActionType = `${FEATURE_NAME}sendUsers` as const;
 
 export const requestStatusResetAsync = createAsyncThunk(
   requestStatusResetActionType,

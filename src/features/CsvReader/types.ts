@@ -1,4 +1,4 @@
-import { UserLinkedToFile } from "@shared/types";
+import { UserLinkedToFile } from "shared/types";
 
 export interface ShallowFile {
   name: string;

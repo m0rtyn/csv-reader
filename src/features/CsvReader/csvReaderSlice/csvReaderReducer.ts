@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CsvReaderState, ShallowFile } from "../types";
-import { UserLinkedToFile } from "@shared/types";
+import { UserLinkedToFile } from "shared/types";
 import { requestStatusResetAsync, sendUsers } from "./csvReaderThunks";
+import { FEATURE_NAME } from "../constants";
 
 const initialState: CsvReaderState = {
   files: [],
@@ -10,11 +11,14 @@ const initialState: CsvReaderState = {
 };
 
 export const csvReaderSlice = createSlice({
-  name: "csvReader",
+  name: FEATURE_NAME,
   initialState,
   reducers: {
     addFiles: (state, action: PayloadAction<ShallowFile[]>) => {
       state.files = action.payload;
+    },
+    resetFiles: (state) => {
+      state.files = [];
     },
     deleteFile: (state, action: PayloadAction<ShallowFile>) => {
       state.files = state.files.filter(
@@ -48,6 +52,7 @@ export const csvReaderSlice = createSlice({
   },
 });
 
-export const { deleteFile, addFiles, addUsers } = csvReaderSlice.actions;
+const { actions, reducer } = csvReaderSlice;
+export const { deleteFile, addFiles, addUsers, resetFiles } = actions;
 
-export const csvReaderReducer = csvReaderSlice.reducer;
+export const csvReaderReducer = reducer;

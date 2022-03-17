@@ -1,8 +1,4 @@
-import {
-  configureStore,
-  ThunkAction,
-  Action,
-} from "@reduxjs/toolkit";
+import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import { csvReaderReducer } from "features/CsvReader";
 import { settingsSlice } from "./settingsSlice";
 

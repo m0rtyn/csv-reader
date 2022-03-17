@@ -1,2 +1,2 @@
-export * from "./store"
-export * from "./settingsSlice"
+export * from "./store";
+export * from "./settingsSlice";

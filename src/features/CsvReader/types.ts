@@ -1,4 +1,4 @@
-import { UserLinkedToFile } from "shared/types";
+import { RequestStatus, UserLinkedToFile } from "shared/types";
 
 export interface ShallowFile {
   name: string;
@@ -10,5 +10,5 @@ export interface ShallowFile {
 export interface CsvReaderState {
   files: ShallowFile[];
   users: UserLinkedToFile[];
-  status: "IDLE" | "REQUEST" | "SUCCESS" | "FAILURE";
+  status: RequestStatus;
 }

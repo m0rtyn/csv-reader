@@ -1,4 +1,4 @@
-import { CssBaseline, GeistProvider, Page } from "@geist-ui/core";
+import { CssBaseline, GeistProvider, Page, Spacer } from "@geist-ui/core";
 import { CsvReader } from "features/CsvReader";
 import { useSelector } from "react-redux";
 import { selectThemeType } from "shared/store/settingsSlice";
@@ -12,7 +12,6 @@ const App = () => {
     <GeistProvider themeType={themeType}>
       <CssBaseline />
       <Page>
-        {/* //TODO: make absolute and add styling*/}
         <ThemeSwitcher />
         <CsvReader />
       </Page>

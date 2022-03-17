@@ -15,6 +15,7 @@ const FileInput: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const users = useSelector(selectUsers);
   const files = useSelector(selectFiles);
+  const isFilesExist = files.length > 0;
 
   const collectUsersFromTexts = useCallback(
     (filename: string, progressEvent: ProgressEvent<FileReader>) => {
@@ -72,14 +73,14 @@ const FileInput: React.FC = () => {
     [collectUsersFromFiles, dispatch]
   );
 
-  const filesCountText = files.length === 0 ? "No" : files.length;
+  const filesCountText = isFilesExist ? files.length : "No";
 
   return (
     <>
       <Text>Please, choose your CSV files</Text>
       <Grid.Container alignItems="center" gap={1}>
         <Grid>
-          <Button auto>
+          <Button type="secondary-light" auto ghost>
             <label className={styles["file-input"]} htmlFor="file-input">
               Browse...
             </label>

@@ -1,5 +1,4 @@
 import { Card } from "@geist-ui/core";
-import { Divider } from "@geist-ui/icons";
 import { useSelector } from "react-redux";
 import { selectFiles } from "../../csvReaderSlice";
 import FileItem from "../FileItem/FileItem";

@@ -17,6 +17,9 @@ export const csvReaderSlice = createSlice({
     addFiles: (state, action: PayloadAction<ShallowFile[]>) => {
       state.files = action.payload;
     },
+    resetFiles: (state) => {
+      state.files = [];
+    },
     deleteFile: (state, action: PayloadAction<ShallowFile>) => {
       state.files = state.files.filter(
         (file) => file.name !== action.payload.name
@@ -49,6 +52,7 @@ export const csvReaderSlice = createSlice({
   },
 });
 
-export const { deleteFile, addFiles, addUsers } = csvReaderSlice.actions;
+const {actions, reducer} = csvReaderSlice
+export const { deleteFile, addFiles, addUsers, resetFiles } = actions;
 
-export const csvReaderReducer = csvReaderSlice.reducer;
+export const csvReaderReducer = reducer;

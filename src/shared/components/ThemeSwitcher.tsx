@@ -1,11 +1,12 @@
 import { Toggle } from "@geist-ui/core";
 import { useDispatch } from "react-redux";
-import { settingsSlice } from "shared/store/settingsSlice";
+import { settingsActions } from "shared/store";
 
+{/* //TODO: make absolute and add styling*/}
 export const ThemeSwitcher = () => {
   const dispatch = useDispatch()
   const switchThemes = () => {
-    dispatch(settingsSlice.actions.toggleTheme())
+    dispatch(settingsActions.toggleTheme())
   };
   
   return (

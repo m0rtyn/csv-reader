@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 
-export const settingsSlice = createSlice({
+const settingsSlice = createSlice({
   name: "settings/",
   initialState: { themeType: "dark" as "dark" | "light" },
   reducers: {
@@ -10,5 +10,7 @@ export const settingsSlice = createSlice({
     },
   },
 });
+
+export const { actions: settingsActions, reducer: settingsReducer } = settingsSlice;
 
 export const selectThemeType = (state: RootState) => state.settings.themeType;

@@ -2,8 +2,12 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "@shared/store";
 import { sendUsersToServer } from "../csvReaderAPI";
 
+const FEATURE_PREFIX = 'csvReader/'
+const requestStatusResetActionType = `${FEATURE_PREFIX}resetRequestStatus` as const
+const sendUsersActionType = `${FEATURE_PREFIX}sendUsers` as const
+
 export const requestStatusResetAsync = createAsyncThunk(
-  "csvReader/resetRequestStatus",
+  requestStatusResetActionType,
   async () =>
     new Promise<void>((resolve) => {
       setTimeout(() => {
@@ -12,8 +16,8 @@ export const requestStatusResetAsync = createAsyncThunk(
     })
 );
 
-export const sendAndAddUsers = createAsyncThunk(
-  "csvReader/sendAndAddUsers",
+export const sendUsers = createAsyncThunk(
+  sendUsersActionType,
   async (_, thunkAPI) => {
     const {
       csvReader: { users },

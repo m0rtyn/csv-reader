@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CsvReaderState, ShallowFile } from "../types";
 import { UserLinkedToFile } from "@shared/types";
-import { requestStatusResetAsync, sendAndAddUsers } from "./csvReaderThunks";
+import { requestStatusResetAsync, sendUsers } from "./csvReaderThunks";
 
 const initialState: CsvReaderState = {
   files: [],
@@ -33,15 +33,15 @@ export const csvReaderSlice = createSlice({
       .addCase(requestStatusResetAsync.fulfilled, (state, action) => {
         state.status = "IDLE";
       })
-      .addCase(sendAndAddUsers.fulfilled, (state, { payload }) => {
+      .addCase(sendUsers.fulfilled, (state, { payload }) => {
         console.info("Success request: ", payload);
         state.status = "SUCCESS";
         state.files = [];
       })
-      .addCase(sendAndAddUsers.pending, (state, action) => {
+      .addCase(sendUsers.pending, (state, action) => {
         state.status = "REQUEST";
       })
-      .addCase(sendAndAddUsers.rejected, (state, action) => {
+      .addCase(sendUsers.rejected, (state, action) => {
         console.info("Failed request: ", action.payload);
         state.status = "FAILURE";
       });

@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getStyleTypeFromStatus } from "shared/utils";
 import { selectFiles, selectRequestStatus } from "../csvReaderSlice";
-import { sendUsers } from "../csvReaderSlice/csvReaderThunks";
+import { addUsersThunk } from "../csvReaderSlice/csvReaderThunks";
 
 const SubmitButton = () => {
   const status = useSelector(selectRequestStatus);
@@ -11,7 +11,7 @@ const SubmitButton = () => {
   const dispatch = useDispatch();
 
   const handleClick = useCallback(() => {
-    dispatch(sendUsers());
+    dispatch(addUsersThunk());
   }, [dispatch]);
 
   return (

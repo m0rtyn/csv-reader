@@ -1,3 +1,4 @@
+import { LogItem } from "features/RequestLogger";
 import { RequestStatus, UserLinkedToFile } from "shared/types";
 
 export interface ShallowFile {
@@ -11,4 +12,5 @@ export interface CsvReaderState {
   files: ShallowFile[];
   users: UserLinkedToFile[];
   status: RequestStatus;
+  requests: LogItem[];
 }

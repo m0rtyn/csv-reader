@@ -8,7 +8,7 @@ export const fetchRetry = async (
       if (!res.ok) {
         throw new Error("Request failure");
       }
-      return res.json();
+      return res;
     });
 
     return response;

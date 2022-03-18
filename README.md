@@ -40,7 +40,7 @@ yarn && yarn start
 
 ### Rest releases
 - [x] If the API call fails - retry 3 times automatically. If all the retries fail - show an error message and let the user retry manually.
-- [ ] Use any component UI library that you like
+- [x] Use any component UI library that you like
 - [ ] Add a separate tab that shows API calls logs - failed/succeeded, user count, timestamp
 - [ ] Add unit tests
 - [ ] Add e2e tests

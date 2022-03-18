@@ -17,9 +17,9 @@ export const requestStatusResetAsync = createAsyncThunk(
     })
 );
 
-export const sendUsers = createAsyncThunk(
+export const addUsersThunk = createAsyncThunk(
   sendUsersActionType,
-  async (_, thunkAPI) => {
+  async (_, thunkAPI): Promise<any> => {
     const {
       csvReader: { users },
     } = thunkAPI.getState() as RootState;
@@ -28,8 +28,8 @@ export const sendUsers = createAsyncThunk(
     const response = await sendUsersToServer({
       users: usernames,
     });
+
     thunkAPI.dispatch(requestStatusResetAsync());
-    console.info(response.statusText);
 
     return response;
   }

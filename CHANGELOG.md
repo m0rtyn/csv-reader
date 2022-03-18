@@ -37,29 +37,6 @@ All notable changes to this project will be documented in this file. See [standa
 * improve UI + components refactoring ([a0b5f2f](https://github.com/m0rtyn/csv-reader/commit/a0b5f2f935218b0f607d423350cde9f00593aed6))
 * react key issue ([47f3e72](https://github.com/m0rtyn/csv-reader/commit/47f3e72a995b8aae6f8e69b16ebafa7b8f9cfb44))
 
-## [0.3.0](https://github.com/m0rtyn/csv-reader/compare/v0.2.0...v0.3.0) (2022-03-17)
-
-
-### ⚠ BREAKING CHANGES
-
-* add ui-library and add theme switcher
-
-### Features
-
-* add request status output ([65025c3](https://github.com/m0rtyn/csv-reader/commit/65025c3c5283a71a847c59ef1dcd57809befcd9f))
-* add request status states and show loading on request ([0b632d4](https://github.com/m0rtyn/csv-reader/commit/0b632d43d523593184b2ea937e13f5f00781138d))
-* add ui-library and add theme switcher ([ff68407](https://github.com/m0rtyn/csv-reader/commit/ff6840771fccdf2399bae656afe3c833018047fb))
-* add util function for request retrying ([dc0f1f4](https://github.com/m0rtyn/csv-reader/commit/dc0f1f4342ac3bac51713ff8c8cf75597f0eae02))
-* **ui:** add request status toasts ([afb6ffc](https://github.com/m0rtyn/csv-reader/commit/afb6ffce3ee4e61c958f8d3b9fbc5ce408495eab))
-
-
-### Bug Fixes
-
-* add request status resetting ([dd061b6](https://github.com/m0rtyn/csv-reader/commit/dd061b63901c4f9669426fa54278afec6ddcc4f2))
-* fetch repeater ([4fa2ae4](https://github.com/m0rtyn/csv-reader/commit/4fa2ae45874b0bb96d05d15708259f6347335c95))
-* imports of store slice ([69d5b51](https://github.com/m0rtyn/csv-reader/commit/69d5b514d7f59b8001430abbd346f0cb7efed1ec))
-* improve UI + components refactoring ([a0b5f2f](https://github.com/m0rtyn/csv-reader/commit/a0b5f2f935218b0f607d423350cde9f00593aed6))
-* react key issue ([47f3e72](https://github.com/m0rtyn/csv-reader/commit/47f3e72a995b8aae6f8e69b16ebafa7b8f9cfb44))
 
 ## [0.2.0](https://github.com/m0rtyn/csv-reader/compare/v0.1.6...v0.2.0) (2022-03-14)
 

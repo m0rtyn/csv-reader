@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "shared/store";
 
-const FEATURE_NAME = 'requestLogger'
+const FEATURE_NAME = "requestLogger";
 
 export interface LogItem {
   status: string;
@@ -14,7 +14,7 @@ interface RequestLoggerState {
 }
 
 const initialState: RequestLoggerState = {
-  requests: []
+  requests: [],
 };
 
 export const requestLoggerSlice = createSlice({
@@ -22,14 +22,14 @@ export const requestLoggerSlice = createSlice({
   initialState,
   reducers: {
     addRequest: (state, action: PayloadAction<LogItem>) => {
-      state.requests.push(action.payload)
-    }
+      state.requests.push(action.payload);
+    },
   },
 });
 
 const { actions, reducer } = requestLoggerSlice;
 export const { addRequest } = actions;
-export const selectRequests = (state: RootState) => state.requestLogger.requests;
-
+export const selectRequests = (state: RootState) =>
+  state.requestLogger.requests;
 
 export const requestLoggerReducer = reducer;

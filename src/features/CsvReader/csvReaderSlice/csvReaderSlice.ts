@@ -12,7 +12,7 @@ const initialState: CsvReaderState = {
   requests: [],
 };
 
-const getCurrentTimestamp = () => format(new Date(), "yyyy/MM/dd HH:mm:ss")
+const getCurrentTimestamp = () => format(new Date(), "yyyy/MM/dd HH:mm:ss");
 
 export const csvReaderSlice = createSlice({
   name: FEATURE_NAME,
@@ -62,7 +62,7 @@ export const csvReaderSlice = createSlice({
         const logItem = {
           status: "failed",
           usersCount: state.users.length,
-          timestamp: getCurrentTimestamp()
+          timestamp: getCurrentTimestamp(),
         };
         state.requests.push(logItem);
         state.status = "FAILURE";

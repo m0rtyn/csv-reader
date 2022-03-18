@@ -7,7 +7,7 @@ export const store = configureStore({
   reducer: {
     settings: settingsReducer,
     csvReader: csvReaderReducer,
-    requestLogger: requestLoggerReducer
+    requestLogger: requestLoggerReducer,
   },
 });
 

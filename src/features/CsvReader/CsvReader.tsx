@@ -1,14 +1,16 @@
-import { Spacer, useToasts } from "@geist-ui/core";
+import { Card, Page, Spacer, Tabs, useTabs, useToasts } from "@geist-ui/core";
 import FileList from "./components/FileList/FileList";
 import { useSelector } from "react-redux";
 import { selectRequestStatus } from "./csvReaderSlice";
 import { useEffect } from "react";
 import { getStatusText, getStyleTypeFromStatus } from "shared/utils";
 import { Form } from "./components/Form";
+import { RequestLogger } from "features/RequestLogger";
 
 const CsvReader: React.FC = () => {
   const status = useSelector(selectRequestStatus);
   const { setToast } = useToasts();
+  const { bindings } = useTabs("1");
 
   useEffect(() => {
     if (status === "IDLE") return;
@@ -23,13 +25,21 @@ const CsvReader: React.FC = () => {
   }, [status]);
 
   return (
-    <>
-      <Form />
-      <Spacer />
-      <FileList />
-    </>
+    <Page.Content>
+      <Card px={1.5} pb={1.5}>
+        <Tabs {...bindings}>
+          <Tabs.Item label="CSV Reader" value="1">
+            <Form />
+            <Spacer />
+            <FileList />
+          </Tabs.Item>
+          <Tabs.Item label="Request Logger" value="2">
+            <RequestLogger />
+          </Tabs.Item>
+        </Tabs>
+      </Card>
+    </Page.Content>
   );
 };
 
 export default CsvReader;
-

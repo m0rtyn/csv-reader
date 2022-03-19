@@ -25,20 +25,18 @@ const CsvReader: React.FC = () => {
   }, [status]);
 
   return (
-    <Page.Content>
-      <Card px={1.5} pb={1.5}>
-        <Tabs {...bindings}>
-          <Tabs.Item label="CSV Reader" value="1">
-            <Form />
-            <Spacer />
-            <FileList />
-          </Tabs.Item>
-          <Tabs.Item label="Request Logger" value="2">
-            <RequestLogger />
-          </Tabs.Item>
-        </Tabs>
-      </Card>
-    </Page.Content>
+    <Card px={1.5} pb={1.5}>
+      <Tabs {...bindings}>
+        <Tabs.Item label="CSV Reader" value="1">
+          <Form />
+          <Spacer />
+          <FileList />
+        </Tabs.Item>
+        <Tabs.Item label="Request Logger" value="2">
+          <RequestLogger />
+        </Tabs.Item>
+      </Tabs>
+    </Card>
   );
 };
 

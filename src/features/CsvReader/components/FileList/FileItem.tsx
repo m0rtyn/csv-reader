@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteFile, selectUsers } from "../../csvReaderSlice";
 import { ShallowFile } from "../../types";
 import { Trash } from "@geist-ui/icons";
-import styles from "./FileItem.module.css";
+import styles from "./FileList.module.css";
 import { roundToFirstDecimal } from "shared/utils/utils";
 
 interface Props {

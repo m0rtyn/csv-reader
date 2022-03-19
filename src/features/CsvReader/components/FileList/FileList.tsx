@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { selectFiles } from "../../csvReaderSlice";
-import FileItem from "../FileItem/FileItem";
-import { FileListHeader } from "../FileItem/FileListHeader";
-import styles from "./FileList.module.css";
+import FileItem from "./FileItem";
+import { FileListHeader } from "./FileListHeader";
+import styles from "./FileList.module.css"
 
 const FileList: React.FC = () => {
   const files = useSelector(selectFiles);

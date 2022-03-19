@@ -53,7 +53,7 @@ export const csvReaderSlice = createSlice({
       })
       .addCase(addUsersThunk.rejected, (state) => {
         const logItem = getRequestLogItem("failure", state.users.length);
-        state.requests.push(logItem);
+        state.requests.unshift(logItem);
         state.status = "FAILURE";
       });
   },

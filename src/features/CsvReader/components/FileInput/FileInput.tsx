@@ -1,55 +1,31 @@
+import { Button } from "@geist-ui/core";
+import { addFiles, collectUsersFromTextThunk, resetUsers } from "features/CsvReader/csvReaderSlice";
+import { getShallowFiles } from "features/CsvReader/utils";
 import { ChangeEvent, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "shared/store/store";
-import {
-  addFiles,
-  addUsers,
-  selectFiles,
-  selectUsers,
-} from "../../csvReaderSlice";
+import { useDispatch } from "react-redux";
 import styles from "./FileInput.module.css";
-import { Button, Grid, Text } from "@geist-ui/core";
 
-// TODO: refactor component
-const FileInput: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const users = useSelector(selectUsers);
-  const files = useSelector(selectFiles);
-  const isFilesExist = files.length > 0;
-
-  const collectUsersFromTexts = useCallback(
-    (filename: string, progressEvent: ProgressEvent<FileReader>) => {
-      const target = progressEvent?.target;
-      const fileText = target?.result as string;
-      const rowsOfCSV = fileText?.split("\n");
-      const addedUsersRows = rowsOfCSV.slice(1, rowsOfCSV.length);
-
-      const addedUsers = addedUsersRows.map((row: string) => {
-        const rowArr = row.split(",");
-        return {
-          name: rowArr[0],
-          age: Number(rowArr[1]),
-          filename,
-        };
-      });
-
-      const newUsersState = [...users, ...addedUsers];
-      dispatch(addUsers(newUsersState));
-    },
-    [dispatch, users]
-  );
+export const FileInput = () => {
+  const dispatch = useDispatch();
 
   const collectUsersFromFiles = useCallback(
     (newFiles: File[]) => {
-      return newFiles.forEach((file) => {
+      const readFileText = (file: File) => {
         const fileReader = new FileReader();
         fileReader.onload = (progressEvent: ProgressEvent<FileReader>) =>
-          collectUsersFromTexts(file.name, progressEvent);
+          dispatch(
+            collectUsersFromTextThunk({
+              filename: file.name,
+              progressEvent,
+            })
+          );
 
         fileReader.readAsText(file);
-      });
+      };
+
+      return newFiles.forEach((file) => readFileText(file));
     },
-    [collectUsersFromTexts]
+    [dispatch]
   );
 
   const handleInputChange = useCallback(
@@ -59,47 +35,25 @@ const FileInput: React.FC = () => {
 
       collectUsersFromFiles(fileArray);
 
-      const shallowFiles = fileArray.map(
-        ({ name, size, type, lastModified }) => ({
-          name,
-          lastModified,
-          size,
-          type,
-        })
-      );
-
+      const shallowFiles = getShallowFiles(fileArray);
       dispatch(addFiles(shallowFiles));
     },
     [collectUsersFromFiles, dispatch]
   );
 
-  const filesCountText = isFilesExist ? files.length : "No";
-
   return (
-    <>
-      <Text>Please, choose your CSV files</Text>
-      <Grid.Container alignItems="center" gap={1}>
-        <Grid>
-          <Button type="secondary-light" auto ghost>
-            <label className={styles["file-input"]} htmlFor="file-input">
-              Browse...
-            </label>
-            <input
-              onChange={handleInputChange}
-              id="file-input"
-              accept=".csv"
-              type="file"
-              required
-              multiple
-            />
-          </Button>
-        </Grid>
-        <Grid>
-          {`${filesCountText} files selected.`}
-        </Grid>
-      </Grid.Container>
-    </>
+    <Button type="secondary-light" auto ghost>
+      <label className={styles["file-input"]} htmlFor="file-input">
+        Browse...
+      </label>
+      <input
+        onChange={handleInputChange}
+        id="file-input"
+        accept=".csv"
+        type="file"
+        required
+        multiple
+      />
+    </Button>
   );
 };
-
-export default FileInput;

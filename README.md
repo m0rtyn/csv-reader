@@ -21,6 +21,10 @@ yarn && yarn start
 - TypeScript
 - eslint, prettier, husky, standard-version
 
+## Changelog
+
+[Link to CHANGELOG.md](./CHANGELOG.md)
+
 ## To be done
 
 ### First release
@@ -40,9 +44,7 @@ yarn && yarn start
 - [x] If the API call succeeds - show a success message and clear all uploaded files.
 - [x] If the API call fails - show an error message and let the user retry manually.
 
-### Rest releases
+### Final release
 - [x] If the API call fails - retry 3 times automatically. If all the retries fail - show an error message and let the user retry manually.
-- [ ] Use any component UI library that you like
-- [ ] Add a separate tab that shows API calls logs - failed/succeeded, user count, timestamp
-- [ ] Add unit tests
-- [ ] Add e2e tests
+- [x] Use any component UI library that you like
+- [x] Add a separate tab that shows API calls logs - failed/succeeded, user count, timestamp

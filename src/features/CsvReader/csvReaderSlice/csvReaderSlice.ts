@@ -1,13 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { addUsersThunk, requestStatusResetThunk } from "./csvReaderThunks";
 import { CsvReaderState, ShallowFile } from "../types";
-import { UserLinkedToFile } from "shared/types";
-import { requestStatusResetAsync, sendUsers } from "./csvReaderThunks";
 import { FEATURE_NAME } from "../constants";
+import { UserLinkedToFile } from "shared/types";
+import { getRequestLogItem } from "../utils";
 
 const initialState: CsvReaderState = {
   files: [],
   users: [],
   status: "IDLE",
+  requests: [],
 };
 
 export const csvReaderSlice = createSlice({
@@ -31,28 +33,35 @@ export const csvReaderSlice = createSlice({
     addUsers: (state, action: PayloadAction<UserLinkedToFile[]>) => {
       state.users = [...state.users, ...action.payload];
     },
+    resetUsers: (state) => {
+      state.users = [];
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(requestStatusResetAsync.fulfilled, (state, action) => {
+      .addCase(requestStatusResetThunk.fulfilled, (state) => {
         state.status = "IDLE";
       })
-      .addCase(sendUsers.fulfilled, (state, { payload }) => {
-        console.info("Success request: ", payload);
-        state.status = "SUCCESS";
-        state.files = [];
-      })
-      .addCase(sendUsers.pending, (state, action) => {
+      .addCase(addUsersThunk.pending, (state, action) => {
         state.status = "REQUEST";
       })
-      .addCase(sendUsers.rejected, (state, action) => {
-        console.info("Failed request: ", action.payload);
+      .addCase(addUsersThunk.fulfilled, (state) => {
+        const logItem = getRequestLogItem("success", state.users.length);
+        state.requests.unshift(logItem);
+        state.status = "SUCCESS";
+        state.files = [];
+        // state.users = [];
+      })
+      .addCase(addUsersThunk.rejected, (state) => {
+        const logItem = getRequestLogItem("failure", state.users.length);
+        state.requests.unshift(logItem);
         state.status = "FAILURE";
       });
   },
 });
 
 const { actions, reducer } = csvReaderSlice;
-export const { deleteFile, addFiles, addUsers, resetFiles } = actions;
+export const { deleteFile, addFiles, addUsers, resetFiles, resetUsers } =
+  actions;
 
 export const csvReaderReducer = reducer;

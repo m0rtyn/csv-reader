@@ -11,4 +11,11 @@ export interface CsvReaderState {
   files: ShallowFile[];
   users: UserLinkedToFile[];
   status: RequestStatus;
+  requests: LogItem[];
+}
+
+export interface LogItem {
+  status: "success" | "failure";
+  timestamp: string;
+  usersCount: number;
 }

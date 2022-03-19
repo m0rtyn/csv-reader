@@ -10,7 +10,9 @@ Just visit https://martyn-vilantis.netlify.app or run localy by
 yarn && yarn start
 ```
 
-<!-- TODO: add screenshot -->
+## Screenshots
+
+![](2022-03-19-16-55-59.png)
 
 ## Tech stack
 

@@ -1,30 +1,19 @@
-import { Card, Grid, Spacer, Toggle, Text } from "@geist-ui/core";
-import { useDispatch } from "react-redux";
-import { settingsActions } from "shared/store";
+import { Toggle, Text} from "@geist-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import { selectThemeType, settingsActions } from "shared/store";
 
 export const ThemeSwitcher = () => {
+  const theme = useSelector(selectThemeType)
   const dispatch = useDispatch();
   const switchThemes = () => {
     dispatch(settingsActions.toggleTheme());
   };
 
   return (
-    <Card
-      style={{
-        width: "100%",
-        position: "absolute",
-        bottom: 0,
-      }}
-    >
-      <Grid.Container justify="flex-end">
-        <Grid justify="flex-end">
-          <Text font={"12px"} my={0} type="secondary">
-            Theme
-          </Text>
-          <Spacer h={0} />
-          <Toggle scale={1.5} type="warning" onChange={switchThemes} />
-        </Grid>
-      </Grid.Container>
-    </Card>
+    <>
+      {theme === "dark" && <Text span>🌝</Text>}
+      <Toggle mb="10px" mx="8px" scale={1.5} type="warning" onChange={switchThemes} />
+      {theme === "light" && <Text span>🌞</Text>}
+    </>
   );
 };

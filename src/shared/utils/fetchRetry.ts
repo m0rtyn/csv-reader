@@ -1,7 +1,7 @@
 export const fetchRetry = async (
   url: string,
-  options: RequestInit,
-  count: number
+  attemptsCount: number = 1,
+  options?: RequestInit
 ): Promise<Response> => {
   try {
     const response = await fetch(url, options).then((res) => {
@@ -13,8 +13,8 @@ export const fetchRetry = async (
 
     return response;
   } catch (err) {
-    if (count === 1) throw err;
+    if (attemptsCount === 1) throw err;
 
-    return await fetchRetry(url, options, count - 1);
+    return await fetchRetry(url, attemptsCount - 1, options);
   }
 };

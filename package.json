@@ -1,6 +1,6 @@
 {
   "name": "csv-reader",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "private": true,
   "dependencies": {
     "@geist-ui/core": "^2.3.6",
@@ -16,6 +16,7 @@
     "@types/react-redux": "^7.1.23",
     "date-fns": "^2.28.0",
     "eslint-config-code-complexity": "^1.1.1",
+    "jest-fetch-mock": "^3.0.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",

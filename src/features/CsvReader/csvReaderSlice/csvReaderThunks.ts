@@ -2,12 +2,15 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "shared/store/store";
 import { FEATURE_NAME } from "../constants";
 import { sendUsersToServer } from "../csvReaderAPI";
+import { addUsers } from "./csvReaderSlice";
 
+const addUsersActionType = `${FEATURE_NAME}/addUsers` as const;
 const requestStatusResetActionType =
-  `${FEATURE_NAME}resetRequestStatus` as const;
-const sendUsersActionType = `${FEATURE_NAME}sendUsers` as const;
+  `${FEATURE_NAME}/resetRequestStatus` as const;
+const collectUsersFromTextsActionType =
+  `${FEATURE_NAME}/collectUsersFromTexts` as const;
 
-export const requestStatusResetAsync = createAsyncThunk(
+export const requestStatusResetThunk = createAsyncThunk(
   requestStatusResetActionType,
   async () =>
     new Promise<void>((resolve) => {
@@ -18,8 +21,8 @@ export const requestStatusResetAsync = createAsyncThunk(
 );
 
 export const addUsersThunk = createAsyncThunk(
-  sendUsersActionType,
-  async (_, thunkAPI): Promise<any> => {
+  addUsersActionType,
+  async (_, thunkAPI): Promise<number> => {
     const {
       csvReader: { users },
     } = thunkAPI.getState() as RootState;
@@ -29,8 +32,28 @@ export const addUsersThunk = createAsyncThunk(
       users: usernames,
     });
 
-    thunkAPI.dispatch(requestStatusResetAsync());
+    thunkAPI.dispatch(requestStatusResetThunk());
 
-    return response;
+    return response.status;
+  }
+);
+
+export const collectUsersFromTextThunk = createAsyncThunk(
+  collectUsersFromTextsActionType,
+  ({ filename, progressEvent }: any, thunkAPI) => {
+    const fileText = progressEvent.target.result as string;
+    const rowsOfCSV = fileText.split("\n");
+    const rowsWithoutHeader = rowsOfCSV.slice(1, rowsOfCSV.length);
+
+    const newUsers = rowsWithoutHeader.map((row: string) => {
+      const [name, ageString] = row.split(",");
+      return {
+        name,
+        filename,
+        age: Number(ageString),
+      };
+    });
+
+    return thunkAPI.dispatch(addUsers(newUsers));
   }
 );

@@ -11,3 +11,5 @@ export const REQUEST_STATUS_TO_LABEL_MAP = {
   FAILURE: "Request error, please repeat the action",
   SUCCESS: "Request was successfully sent",
 };
+
+export const TIMESTAMP_FORMAT = "yyyy/MM/dd HH:mm:ss"

@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { addUsersThunk, requestStatusResetThunk } from "./csvReaderThunks";
 import { CsvReaderState, ShallowFile } from "../types";
-import { UserLinkedToFile } from "shared/types";
-import { addUsersThunk, requestStatusResetAsync } from "./csvReaderThunks";
 import { FEATURE_NAME } from "../constants";
-import { format } from "date-fns";
+import { UserLinkedToFile } from "shared/types";
+import { getRequestLogItem } from "../utils";
 
 const initialState: CsvReaderState = {
   files: [],
@@ -11,8 +11,6 @@ const initialState: CsvReaderState = {
   status: "IDLE",
   requests: [],
 };
-
-const getCurrentTimestamp = () => format(new Date(), "yyyy/MM/dd HH:mm:ss");
 
 export const csvReaderSlice = createSlice({
   name: FEATURE_NAME,
@@ -35,35 +33,26 @@ export const csvReaderSlice = createSlice({
     addUsers: (state, action: PayloadAction<UserLinkedToFile[]>) => {
       state.users = [...state.users, ...action.payload];
     },
+    resetUsers: (state) => {
+      state.users = []
+    }
   },
   extraReducers: (builder) => {
     builder
-      .addCase(requestStatusResetAsync.fulfilled, (state, action) => {
+      .addCase(requestStatusResetThunk.fulfilled, (state, action) => {
         state.status = "IDLE";
       })
       .addCase(addUsersThunk.pending, (state, action) => {
         state.status = "REQUEST";
       })
-      .addCase(addUsersThunk.fulfilled, (state, { payload: response }) => {
-        console.info("Success request: ", response);
-
-        const logItem = {
-          status: response.status,
-          usersCount: state.users.length,
-          timestamp: getCurrentTimestamp(),
-        };
-        state.requests.push(logItem);
+      .addCase(addUsersThunk.fulfilled, (state) => {
+        const logItem = getRequestLogItem("success", state.users.length);
+        state.requests.unshift(logItem);
         state.status = "SUCCESS";
         state.files = [];
       })
-      .addCase(addUsersThunk.rejected, (state, { payload: response }) => {
-        console.info("Failed request: ", response);
-
-        const logItem = {
-          status: "failed",
-          usersCount: state.users.length,
-          timestamp: getCurrentTimestamp(),
-        };
+      .addCase(addUsersThunk.rejected, (state) => {
+        const logItem = getRequestLogItem("failure", state.users.length);
         state.requests.push(logItem);
         state.status = "FAILURE";
       });
@@ -71,6 +60,6 @@ export const csvReaderSlice = createSlice({
 });
 
 const { actions, reducer } = csvReaderSlice;
-export const { deleteFile, addFiles, addUsers, resetFiles } = actions;
+export const { deleteFile, addFiles, addUsers, resetFiles, resetUsers } = actions;
 
 export const csvReaderReducer = reducer;

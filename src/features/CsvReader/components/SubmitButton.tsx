@@ -9,19 +9,21 @@ const SubmitButton = () => {
   const status = useSelector(selectRequestStatus);
   const files = useSelector(selectFiles);
   const dispatch = useDispatch();
-
+  
   const handleClick = useCallback(() => {
     dispatch(addUsersThunk());
   }, [dispatch]);
+
+  const loading = status === "REQUEST"
+  const disabled = files.length === 0
 
   return (
     <Button
       type={getStyleTypeFromStatus(status)}
       onClick={handleClick}
-      loading={status === "REQUEST"}
-      disabled={files.length === 0}
+      disabled={disabled}
+      loading={loading}
       auto
-      ghost
     >
       Submit
     </Button>

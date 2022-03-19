@@ -12,7 +12,10 @@ yarn && yarn start
 
 ## Screenshots
 
-![](2022-03-19-16-55-59.png)
+
+
+<img width="500" src="./public/screenshot1.png" />
+<img width="500" src="./public/screenshot2.png" />
 
 ## Tech stack
 

@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.1](https://github.com/m0rtyn/csv-reader/compare/v0.5.0...v0.5.1) (2022-03-19)
+
+
+### Bug Fixes
+
+* users state overflowing issue and refactoring ([f9d2064](https://github.com/m0rtyn/csv-reader/commit/f9d206448190676cb8a6105809c73ace54d22b61))
+* users state resetting ([f059347](https://github.com/m0rtyn/csv-reader/commit/f05934791536344d7c292414300f6aeb786951f1))
+* wrong log item appending on failure ([cdeb99c](https://github.com/m0rtyn/csv-reader/commit/cdeb99c10b8f1c2b9ac5bdaeceee6ffca0698209))
+
 ## [0.5.0](https://github.com/m0rtyn/csv-reader/compare/v0.4.0...v0.5.0) (2022-03-18)
 
 

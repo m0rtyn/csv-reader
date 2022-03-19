@@ -21,5 +21,5 @@ export const sendUsersToServer = (
     body,
   };
 
-  return fetchRetry(url, options, 3);
+  return fetchRetry(url, 3, options);
 };

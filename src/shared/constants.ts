@@ -12,4 +12,4 @@ export const REQUEST_STATUS_TO_LABEL_MAP = {
   SUCCESS: "Request was successfully sent",
 };
 
-export const TIMESTAMP_FORMAT = "yyyy/MM/dd HH:mm:ss"
+export const TIMESTAMP_FORMAT = "yyyy/MM/dd HH:mm:ss";

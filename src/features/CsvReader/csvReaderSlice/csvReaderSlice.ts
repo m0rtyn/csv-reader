@@ -34,8 +34,8 @@ export const csvReaderSlice = createSlice({
       state.users = [...state.users, ...action.payload];
     },
     resetUsers: (state) => {
-      state.users = []
-    }
+      state.users = [];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -60,6 +60,7 @@ export const csvReaderSlice = createSlice({
 });
 
 const { actions, reducer } = csvReaderSlice;
-export const { deleteFile, addFiles, addUsers, resetFiles, resetUsers } = actions;
+export const { deleteFile, addFiles, addUsers, resetFiles, resetUsers } =
+  actions;
 
 export const csvReaderReducer = reducer;

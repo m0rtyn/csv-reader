@@ -33,7 +33,6 @@ export const FileInput = () => {
       const files = (event.target as HTMLInputElement)?.files || [];
       const fileArray = Array.from(files);
 
-      dispatch(resetUsers());
       collectUsersFromFiles(fileArray);
 
       const shallowFiles = getShallowFiles(fileArray);

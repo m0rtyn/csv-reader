@@ -39,7 +39,7 @@ export const csvReaderSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(requestStatusResetThunk.fulfilled, (state, action) => {
+      .addCase(requestStatusResetThunk.fulfilled, (state) => {
         state.status = "IDLE";
       })
       .addCase(addUsersThunk.pending, (state, action) => {
@@ -50,6 +50,7 @@ export const csvReaderSlice = createSlice({
         state.requests.unshift(logItem);
         state.status = "SUCCESS";
         state.files = [];
+        // state.users = [];
       })
       .addCase(addUsersThunk.rejected, (state) => {
         const logItem = getRequestLogItem("failure", state.users.length);

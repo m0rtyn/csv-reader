@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "shared/store/store";
 import { FEATURE_NAME } from "../constants";
 import { sendUsersToServer } from "../csvReaderAPI";
-import { addUsers } from "./csvReaderSlice";
+import { addUsers, resetUsers } from "./csvReaderSlice";
 
 const addUsersActionType = `${FEATURE_NAME}/addUsers` as const;
 const requestStatusResetActionType =
@@ -33,6 +33,7 @@ export const addUsersThunk = createAsyncThunk(
     });
 
     thunkAPI.dispatch(requestStatusResetThunk());
+    thunkAPI.dispatch(resetUsers());
 
     return response.status;
   }

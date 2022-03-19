@@ -27,19 +27,21 @@ describe("fetchRetry()", () => {
 
   it("should succeed if rejections end", async () => {
     // eslint-disable-next-line max-nested-callbacks
-    fetch.mockRejectOnce(new Error('fake error message'));
-    fetch.mockRejectOnce(new Error('fake error message'));
+    fetch.mockRejectOnce(new Error("fake error message"));
+    fetch.mockRejectOnce(new Error("fake error message"));
     const response = await fetchRetry("http://testhost:666", 3);
-    
+
     expect(fetch).toBeCalledTimes(3);
     expect(response.statusText).toBe("OK");
   });
 
   it("should make many request attempts and fail", async () => {
-    fetch.mockReject(new Error('fake error message'));
-    
+    fetch.mockReject(new Error("fake error message"));
+
     // eslint-disable-next-line max-nested-callbacks
-    await expect(() => fetchRetry("http://testhost:666", 5)).rejects.toThrow("fake error message");
-    expect(fetch).toBeCalled()
+    await expect(() => fetchRetry("http://testhost:666", 5)).rejects.toThrow(
+      "fake error message"
+    );
+    expect(fetch).toBeCalled();
   });
 });

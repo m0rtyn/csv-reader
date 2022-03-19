@@ -1,7 +1,6 @@
 import { Divider } from "@geist-ui/core";
-import styles from "./FileItem.module.css";
+import styles from "./FileList.module.css";
 
-// TODO: move component to shared foledr
 export const FileListHeader = () => {
   const className = `${styles["file-item"]} ${styles["file-list-header"]}`;
 
@@ -17,3 +16,4 @@ export const FileListHeader = () => {
     </>
   );
 };
+

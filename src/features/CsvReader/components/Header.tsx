@@ -6,15 +6,18 @@ export const Header = () => {
 
   return (
     <Page.Header py={"4px"}>
-      <Grid.Container gap={2} justify="space-between" alignItems="center">
+      <Grid.Container
+        gap={2}
+        justify="space-between"
+        alignItems="center"
+        wrap="nowrap"
+      >
         <Grid py={0}>
-          <Text
-            font="16px"
-            my={0}
-            h1
-          >
+          <Text font="16px" my={0} h1>
             CSV Reader 3000
-            <Text span mx="8px" font={"8px"} type="secondary">v{version}</Text>
+            <Text span mx="8px" font={"8px"} type="secondary">
+              v{version}
+            </Text>
           </Text>
         </Grid>
         <Grid>

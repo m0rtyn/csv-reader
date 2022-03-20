@@ -2,6 +2,15 @@
   "name": "csv-reader",
   "version": "0.5.4",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "coverage": "yarn test -- --coverage --watchAll=false",
+    "format": "prettier --write 'src/**/*.{ts, tsx}'",
+    "release": "standard-version",
+    "postinstall": "husky install"
+  },
   "dependencies": {
     "@geist-ui/core": "^2.3.6",
     "@geist-ui/icons": "^1.0.1",
@@ -53,14 +62,6 @@
       "prettier --write"
     ]
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "format": "prettier --write 'src/**/*.{ts, tsx}'",
-    "release": "standard-version",
-    "postinstall": "husky install"
-  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -78,5 +79,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "jest": {
+    "coverageReporters": ["text-summary"]
   }
 }
